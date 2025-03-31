@@ -4,25 +4,15 @@ using UnityEngine;
 
 public class RandomSpawnPointStrategy : ISpawnPointStrategy
 {
-    List<Transform> unusedSpawnPoints;
-    Transform[] spawnPoints;
+    Transform spawnPoint;
 
-    public RandomSpawnPointStrategy(Transform[] spawnPoints)
+    public RandomSpawnPointStrategy(Transform spawnPoint)
     {
-        this.spawnPoints = spawnPoints;
-        unusedSpawnPoints = new List<Transform>(spawnPoints);
+        this.spawnPoint = spawnPoint;
     }
 
-    public Transform NextSpawnPoint()
+    public Transform SpawnPoint()
     {
-        if (!unusedSpawnPoints.Any())
-        {
-            unusedSpawnPoints = new List<Transform>(spawnPoints);
-        }
-
-        var randomIndex = Random.Range(0, unusedSpawnPoints.Count);
-        Transform result = unusedSpawnPoints[randomIndex];
-        unusedSpawnPoints.RemoveAt(randomIndex);
-        return result;
+        return spawnPoint;
     }
 }

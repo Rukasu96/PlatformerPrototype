@@ -2,18 +2,22 @@ using UnityEngine;
 
 public class CollectiblesSpawnManager : EntitySpawnManager
 {
-    [SerializeField] CollectibleData[] collectibleData;
-
     EntitySpawner<Collectible> spawner;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        spawner = new EntitySpawner<Collectible>(new EntityFactory<Collectible>(collectibleData), spawnPointStrategy);
-    }
 
     public override void Spawn()
     {
         spawner.Spawn();
+    }
+
+    public void SetToSpawn(CollectibleData collectibleData, Transform spawnPoint, int amount)
+    {
+        this.spawnPoint = spawnPoint;
+        SetStrategyType();
+        spawner = new EntitySpawner<Collectible>(new EntityFactory<Collectible>(collectibleData), spawnPointStrategy);
+        
+        for (int i = 0; i < amount; i++)
+        {
+            Spawn();
+        }
     }
 }

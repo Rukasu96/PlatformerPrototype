@@ -13,6 +13,6 @@ public class EntitySpawner<T> where T : Entity
 
     public T Spawn()
     {
-        return entityFactory.Create(spawnPointStrategy.NextSpawnPoint());
+        return entityFactory.Create(spawnPointStrategy.SpawnPoint());
     }
 }
