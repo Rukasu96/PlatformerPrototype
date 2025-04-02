@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61173b9630b65b64f8749a8861372596, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 8212786730997726931, guid: 3c697445c37a6724da53f4d75d0ff041, type: 3}
   score: 1

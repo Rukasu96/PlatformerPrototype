@@ -1,16 +1,25 @@
 using UnityEngine;
 
-public class EntitySpawnManagerr : MonoBehaviour
+public abstract class EntitySpawnManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] protected SpawnPointStrategyType spawnPointStrategyType = SpawnPointStrategyType.Random;
+    protected Transform spawnPoint;
+    protected ISpawnPointStrategy spawnPointStrategy;
+
+    protected enum SpawnPointStrategyType
     {
-        
+        Random,
     }
 
-    // Update is called once per frame
-    void Update()
+    protected void SetStrategyType()
     {
-        
+        switch (spawnPointStrategyType)
+        {
+            case SpawnPointStrategyType.Random:
+                spawnPointStrategy = new RandomSpawnPointStrategy(spawnPoint);
+                break;
+        }
     }
+
+    public abstract void Spawn();
 }

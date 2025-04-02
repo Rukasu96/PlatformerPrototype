@@ -20,4 +20,9 @@ public class CollectiblesSpawnManager : EntitySpawnManager
             Spawn();
         }
     }
+
+    private void OnEnable()
+    {
+        CollectibleBox.OnCollectibleBoxDestroyed += SetToSpawn;
+    }
 }

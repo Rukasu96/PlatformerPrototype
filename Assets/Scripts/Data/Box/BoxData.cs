@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CollectibleBoxData : EntityData
 {
-    public GameObject collectibleInsidePrefab;
+    public CollectibleData collectibleData;
     public int minCollectibleContain;
     public int maxCollectibleContain;
     
