@@ -253,6 +253,9 @@ MonoBehaviour:
   jumpCooldown: 0
   jumpMaxHeight: 2
   gravityMultiplier: 3
+  attackDuration: 0
+  attackCooldown: 0
+  isAttack: 0
 --- !u!136 &276567661
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2530,6 +2533,18 @@ PrefabInstance:
       propertyPath: freeLookVCam
       value: 
       objectReference: {fileID: 2124896677}
+    - target: {fileID: 2992487283909190794, guid: ada192b26287d7347a80f314265113f7, type: 3}
+      propertyPath: jumpCooldown
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992487283909190794, guid: ada192b26287d7347a80f314265113f7, type: 3}
+      propertyPath: attackCooldown
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992487283909190794, guid: ada192b26287d7347a80f314265113f7, type: 3}
+      propertyPath: attackDuration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3205191153968811513, guid: ada192b26287d7347a80f314265113f7, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.8
