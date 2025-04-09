@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 722e92d6d8e9cb34d8fbf2d4f51a0854, type: 3}
+  m_Name: StandardBox
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 290711288939851452, guid: fe12b3020cd8d424ead860fd1923c96a, type: 3}
+  collectibleData: {fileID: 11400000, guid: 0a7f98a6505c0524f8cbe7934c5297e1, type: 2}
+  minCollectibleContain: 3
+  maxCollectibleContain: 5

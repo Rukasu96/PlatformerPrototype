@@ -21,6 +21,10 @@ public class Movement : MonoBehaviour
     [SerializeField] float jumpMaxHeight;
     [SerializeField] float gravityMultiplier;
 
+    [Header("Attack Settings")]
+    [SerializeField] float attackDuration;
+    [SerializeField] float attackCooldown;
+
     private GroundChecker groundChecker;
     private Rigidbody rb;
     private Vector3 moveDirection;
@@ -31,10 +35,13 @@ public class Movement : MonoBehaviour
     Transform mainCam;
 
     static readonly int Speed = Animator.StringToHash("Speed");
+    public bool isAttack;
 
     List<Timer> timers;
     CountdownTimer jumpTimer;
     CountdownTimer jumpCooldownTimer;
+    CountdownTimer attackTimer;
+    CountdownTimer attackCooldownTimer;
 
     private void Awake()
     {
@@ -46,8 +53,14 @@ public class Movement : MonoBehaviour
 
         jumpTimer = new CountdownTimer(jumpDuration);
         jumpCooldownTimer = new CountdownTimer(jumpCooldown);
-        timers = new List<Timer>(2) { jumpTimer, jumpCooldownTimer};
         jumpTimer.OnTimerStart += () => jumpCooldownTimer.StartTimer();
+
+        attackTimer = new CountdownTimer(attackDuration);
+        attackCooldownTimer = new CountdownTimer(attackCooldown);
+        attackTimer.OnTimerStart += () => attackCooldownTimer.StartTimer();
+
+        timers = new List<Timer>(4) { jumpTimer, jumpCooldownTimer, attackTimer, attackCooldownTimer };
+
     }
 
     private void Start()
@@ -61,6 +74,7 @@ public class Movement : MonoBehaviour
         moveDirection = new Vector3(input.Direction.x, 0f, input.Direction.y);
         HandleTimers();
         UpdateRunningAnimator();
+        HandleAttack();
     }
 
     private void FixedUpdate()
@@ -107,6 +121,35 @@ public class Movement : MonoBehaviour
         float diff = Quaternion.Angle(transform.rotation, Quaternion.Euler(transform.rotation.x, transform.rotation.y + targetAngle, transform.rotation.z));
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, (int)diff <= 90 ? rotationTime : 0.01f);
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
+    }
+
+    private void OnAttack(bool isPressed)
+    {
+        if (isPressed && !attackTimer.IsRunning && !attackCooldownTimer.IsRunning)
+        {
+            attackTimer.StartTimer();
+        }
+        else if (!isPressed && jumpTimer.IsRunning)
+        {
+            attackTimer.StopTimer();
+        }
+    }
+
+    private void HandleAttack()
+    {
+        if(!attackTimer.IsRunning)
+        {
+            attackTimer.StopTimer();
+            //animator.SetBool("Attack", false);
+            isAttack = false;
+            return;
+        }
+
+        if (attackTimer.IsRunning)
+        {
+            //animator.SetBool("Attack", true);
+            isAttack = true;
+        }
     }
 
     private void OnJump(bool isPressed)
@@ -157,13 +200,28 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public void Bounce()
+    {
+        if (!jumpTimer.IsRunning && !jumpCooldownTimer.IsRunning)
+        {
+            jumpTimer.StartTimer();
+            HandleJump();
+        }
+        else if (groundChecker.IsGrounded && jumpTimer.IsRunning)
+        {
+            jumpTimer.StopTimer();
+        }
+    }
+
     private void OnEnable()
     {
         input.Jump += OnJump;
+        input.Attack += OnAttack;
     }
 
     private void OnDisable()
     {
         input.Jump -= OnJump;
+        input.Attack -= OnAttack;
     }
 }
