@@ -9,14 +9,17 @@ public class SpawnEffect : MonoBehaviour
     [SerializeField] float jumpHeight;
     [SerializeField] float maxSpread;
 
+    public bool isFinished;
+
     private void Start()
     {
-        Vector3 random = SpreadRandomizer.RandomSpreadPosition(maxSpread, transform);
+        Vector3 random = Randomizer.RandomSpreadPosition(maxSpread, transform);
         transform.localScale = Vector3.zero;
         transform.DOScale(Vector3.one, animationScaleDuration).SetEase(Ease.OutBack);
         transform.DOMoveY(transform.position.y + jumpHeight, animationJumpDuration).SetEase(Ease.InSine).OnComplete(() =>
         {
             transform.DOMove(random, animationSpreadDuration);
+            isFinished = true;
         });
     }
 }

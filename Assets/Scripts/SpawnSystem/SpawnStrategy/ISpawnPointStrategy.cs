@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface ISpawnPointStrategy
 {
-    Transform SpawnPoint();
+    Transform GetSpawnPoint();
 }

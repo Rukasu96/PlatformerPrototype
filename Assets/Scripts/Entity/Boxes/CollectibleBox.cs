@@ -11,7 +11,8 @@ public class CollectibleBox : Box
 
     protected override void BoxDestroy()
     {
-        OnCollectibleBoxDestroyed?.Invoke(collectibleBoxdata.collectibleData , transform, 5);
+        int collectibleAmount = Randomizer.RandomNumber(collectibleBoxdata.minCollectibleContain, collectibleBoxdata.maxCollectibleContain);
+        OnCollectibleBoxDestroyed?.Invoke(collectibleBoxdata.collectibleData , transform, collectibleAmount);
         Destroy(gameObject);
     }
 

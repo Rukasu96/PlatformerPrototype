@@ -25,4 +25,9 @@ public class CollectiblesSpawnManager : EntitySpawnManager
     {
         CollectibleBox.OnCollectibleBoxDestroyed += SetToSpawn;
     }
+
+    private void OnDestroy()
+    {
+        CollectibleBox.OnCollectibleBoxDestroyed -= SetToSpawn;
+    }
 }
