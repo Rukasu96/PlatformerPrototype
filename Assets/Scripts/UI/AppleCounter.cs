@@ -25,7 +25,7 @@ public class AppleCounter : MonoBehaviour
         counterText.text = value.ToString();
         await HideCounter();
     }
-    //Czy to jest dobre u¿ycie UniTaska??
+    
     private async UniTask HideCounter()
     {
         await UniTask.WaitForSeconds(2);

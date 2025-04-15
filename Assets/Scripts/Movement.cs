@@ -31,7 +31,6 @@ public class Movement : MonoBehaviour
     float turnSmoothVelocity;
     float jumpVelocity;
     float currentSpeed;
-    //float velocity;
     Transform mainCam;
 
     static readonly int Speed = Animator.StringToHash("Speed");
@@ -85,7 +84,7 @@ public class Movement : MonoBehaviour
 
     private void HandleMovement()
     {
-        Vector3 moveVector = new Vector3(moveDirection.x, 0f, moveDirection.z).normalized;
+        Vector3 moveVector = new Vector3(moveDirection.x, 0f, moveDirection.z);
         Vector3 adjustedDirection = Quaternion.AngleAxis(mainCam.eulerAngles.y, Vector3.up) * moveVector;
         rb.AddForce(adjustedDirection * Acceleration, ForceMode.Force);
         currentSpeed = adjustedDirection.magnitude;
@@ -104,11 +103,6 @@ public class Movement : MonoBehaviour
         }
         
     }
-
-    //private float SmoothSpeed(float value)
-    //{
-    //    return Mathf.SmoothDamp(currentSpeed, value, ref velocity)
-    //}
 
     private void UpdateRunningAnimator()
     {
